@@ -1,0 +1,14 @@
+{
+	"db_conn":
+	  	{
+	  		"connectionLimit" : 10,
+			"host"            : "127.0.0.1",
+			"user"            : "root",
+			"password"        : "root",
+			"database"        : "segurancaRodoviaria"
+		},
+	"backend": {
+		"port" : 3000,
+		"jwt_secret":"ygofy7i66rfuycyi76r"
+	}
+}
