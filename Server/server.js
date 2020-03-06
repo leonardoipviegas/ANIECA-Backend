@@ -28,12 +28,27 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(require("./controllers/middleware/authentication"));
-app.post("/api/login", controllers.authentication.login);
-app.post("/api/signup", controllers.authentication.signup);
+app.post("/api/login/", controllers.authentication.login);
+app.post("/api/signup/", controllers.authentication.signup);
 
+//account
 app.get("/api/account/", controllers.account.getAccounts);
 app.get("/api/account/:entity", controllers.account.getAccountByEntityId);
 app.delete("/api/account/", controllers.account.deleteAccountById);
+
+// content
+app.get('/api/content/menu', controllers.content.getContentMenu)
+
+// sign type
+app.get('/api/content/traffic-signs/', controllers.traffic_signs.getTraffic_Signs_TypeById)
+app.patch('/api/content/traffic-signs/', controllers.traffic_signs.patchTraffic_Signs_TypeById)
+
+// signs
+app.get('/api/content/traffic-signs/images/', controllers.traffic_signs.getTraffic_Signs_ImageByTypeId)
+app.get('/api/content/traffic-signs/sign/', controllers.traffic_signs.getTraffic_SignById)
+app.post('/api/content/traffic-signs/sign/', controllers.traffic_signs.postTraffic_Sign)
+app.patch('/api/content/traffic-signs/sign/', controllers.traffic_signs.patchTraffic_SignById)
+app.delete('/api/content/traffic-signs/sign/', controllers.traffic_signs.deleteTraffic_SignById)
 
 server.listen(port, () => {
   console.log(`Started on port ${port}`);

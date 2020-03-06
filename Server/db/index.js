@@ -22,5 +22,6 @@ myQuery = function(queryString, values, callback) {
 };
 
 module.exports = {
-  Qgen_accounts: require("./Qaccount")(myQuery)
+  Qgen_accounts: require("./Qaccount")(myQuery),
+  Qgen_traffic_signs: require('./Qtraffic_signs')(myQuery)
 };

@@ -73,7 +73,7 @@ module.exports = {
       } else {
         entity = "permit";
       }
-      console.log(req.body, entity)
+
       passport.authenticate(entity, (e, account, info) => {
         if (e) {
           console.log("Error authenticating");
@@ -92,14 +92,12 @@ module.exports = {
 
           res.status(200).json({
             token,
-            expiresIn: exp - (new Date().getTime() / 1000),
-            idAccount: account._id
+            expiresIn: exp - (new Date().getTime() / 1000)
           });
 
           console.log({
             token,
-            expiresIn: exp - (new Date().getTime() / 1000),
-            idAccount: account._id
+            expiresIn: exp - (new Date().getTime() / 1000)
           });
         } else {
           res.status(401).json(info);

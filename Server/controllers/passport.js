@@ -39,13 +39,14 @@ passport.use(
           console.log("Account not found");
           return done(null, false, { message: "Account not found" });
         }
+
         if (!verifyPassword(accountInfo, body.Password)) {
           return done(null, false, { message: "Password is wrong" });
         } else {
           return done(null, {
             _id: accountInfo.idAccount,
             permit: accountInfo.Permit,
-            entity: body.Entity
+            entity: accountInfo.Entity_idEntity
           });
         }
       }
