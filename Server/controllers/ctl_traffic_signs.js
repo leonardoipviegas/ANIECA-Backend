@@ -17,6 +17,7 @@ var patchTraffic_Signs_TypeById = (req, res) => {
   dbHandlers.Qgen_traffic_signs.QpatchTraffic_Sign_TypeById(
     JSON.parse(
       JSON.stringify({
+        Name: req.body.Name,
         Text: req.body.Text,
         Placement_Text: req.body.Placement_Text,
         Placement_Image_Route: req.body.Placement_Image_Route
