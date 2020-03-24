@@ -36,9 +36,6 @@ app.get("/api/account/", controllers.account.getAccounts);
 app.get("/api/account/:entity", controllers.account.getAccountByEntityId);
 app.delete("/api/account/", controllers.account.deleteAccountById);
 
-// content
-app.get('/api/content/menu', controllers.content.getContentMenu)
-
 // sign type
 app.get('/api/content/traffic-signs/', controllers.traffic_signs.getTraffic_Signs_TypeById)
 app.patch('/api/content/traffic-signs/', controllers.traffic_signs.patchTraffic_Signs_TypeById)

@@ -29,7 +29,7 @@ QpatchTraffic_Sign_TypeById = (patch, id, cb) => {
 
 QgetTraffic_Signs_ImageByTypeId = (id, cb) => {
   return myQuery(
-    "SELECT idTraffic_Signs, Image_Route FROM Traffic_Signs " +
+    "SELECT idTraffic_Signs, Traffic_Signs.Name, Image_Route FROM Traffic_Signs " +
       "INNER JOIN Traffic_Signs_Type ON " +
       "Traffic_Signs.Traffic_Signs_Type_idTraffic_Signs_Type = Traffic_Signs_Type.idTraffic_Signs_Type " +
       "WHERE idTraffic_Signs_Type = ?",
@@ -52,8 +52,7 @@ QgetAllTraffic_Signs = (cb) => {
 QpostTraffic_Sign = (post, cb) => {
   return myQuery(
     "INSERT INTO `Traffic_Signs` (`Name`, `Text`, `Image_Route`, " +
-    "`Traffic_Signs_Type_idTraffic_Signs_Type`, `Example_1_Image_Route`, `Example_2_Image_Route`, " +
-    "`Example_3_Image_Route`) VALUES (?)",
+    "`Traffic_Signs_Type_idTraffic_Signs_Type`) VALUES (?)",
     [post],
     (error, results) => {
       error ? cb(error) : cb(null, results);
@@ -63,7 +62,13 @@ QpostTraffic_Sign = (post, cb) => {
 
 QgetTraffic_SignById = (id, cb) => {
   return myQuery(
-    "SELECT * FROM Traffic_Signs WHERE idTraffic_Signs = ?",
+    "SELECT Traffic_Signs.*, CONCAT( '[', GROUP_CONCAT( CONCAT( " +
+      "'{\"idTraffic_Signs_Examples\":', Traffic_Signs_Examples.idTraffic_Signs_Examples, " +
+      "', \"Example_Image_Route\":\"', Traffic_Signs_Examples.Example_Image_Route, '\"}' )), ']') " +
+      "AS Examples FROM Traffic_Signs " +
+      "LEFT JOIN Traffic_Signs_Examples ON Traffic_Signs.idTraffic_Signs = Traffic_Signs_Examples.Traffic_Signs_idTraffic_Signs " +
+      "WHERE Traffic_Signs.idTraffic_Signs = ? " +
+      "GROUP BY Traffic_Signs.idTraffic_Signs",
     [id],
     (error, results) => {
       error ? cb(error) : cb(null, results);
