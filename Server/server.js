@@ -38,6 +38,7 @@ app.delete("/api/account/", controllers.account.deleteAccountById);
 
 // sign type
 app.get('/api/content/traffic-signs/', controllers.traffic_signs.getTraffic_Signs_TypeById)
+app.post('/api/content/traffic-signs', controllers.traffic_signs.postTraffic_Sign)
 app.patch('/api/content/traffic-signs/', controllers.traffic_signs.patchTraffic_Signs_TypeById)
 
 // signs
