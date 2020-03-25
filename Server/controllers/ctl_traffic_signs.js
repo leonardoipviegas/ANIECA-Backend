@@ -1,16 +1,29 @@
 var dbHandlers = require("../db");
 
 var getTraffic_Signs_TypeById = (req, res) => {
-  dbHandlers.Qgen_traffic_signs.QgetTraffic_Sign_TypeById(
-    req.query.idTraffic_Signs_Type,
-    (err, results) => {
-      if (err) {
-        console.log(err);
-        res.status(500).send({ message: "Unknown error." });
+  if (req.query.idTraffic_Signs_Type) {
+    dbHandlers.Qgen_traffic_signs.QgetTraffic_Sign_TypeById(
+      req.query.idTraffic_Signs_Type,
+      (err, results) => {
+        if (err) {
+          console.log(err);
+          res.status(500).send({ message: "Unknown error." });
+        }
+        return res.send(results[0]);
       }
-      return res.send(results[0]);
-    }
-  );
+    );
+  }
+  else {
+    dbHandlers.Qgen_traffic_signs.QgetAllTraffic_Sign_Type(
+      (err, results) => {
+        if (err) {
+          console.log(err)
+          res.status(500).send({ message: "Database error getting sign types"})
+        }
+        return res.send(results)
+      }
+    )
+  }
 };
 
 var patchTraffic_Signs_TypeById = (req, res) => {
@@ -55,7 +68,6 @@ var getTraffic_SignById = (req, res) => {
         console.log(err);
         res.status(500).send({ message: "Unknown error." });
       }
-
       results[0].Examples = JSON.parse(results[0].Examples)
       return res.send(results);
     }
@@ -63,12 +75,32 @@ var getTraffic_SignById = (req, res) => {
 };
 
 var postTraffic_Sign = (req, res) => {
+  console.log(req.query)
+  if (req.query.type) {
+    dbHandlers.Qgen_traffic_signs.QpostTrafficSignType(
+      [
+        req.body.Name,
+        req.body.Text,
+        req.body.Placement_Text,
+        req.body.Placement_Image_Route
+      ], (err, results) => {
+        if (err) {
+          console.log(err)
+          res.status(500).send({ message: "Database error"})
+        }
+        return res.send(results)
+      })
+  }
+  else{
     dbHandlers.Qgen_traffic_signs.QpostTraffic_Sign(
       [
         req.body.Name,
         req.body.Text,
         req.body.Image_Route,
-        req.body.Traffic_Signs_Type_idTraffic_Signs_Type
+        req.body.Traffic_Signs_Type_idTraffic_Signs_Type,
+        req.body.Example_1_Image_Route,
+        req.body.Example_2_Image_Route,
+        req.body.Example_3_Image_Route
       ],
         (err, results) => {
           if (err) {
@@ -78,6 +110,7 @@ var postTraffic_Sign = (req, res) => {
           return res.send(results);
         }
       );
+  }
 }
 
 var patchTraffic_SignById = (req, res) => {
