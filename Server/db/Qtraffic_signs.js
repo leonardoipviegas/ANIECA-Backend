@@ -60,6 +60,16 @@ QpostTraffic_Sign = (post, cb) => {
   );
 };
 
+QpostTrafficSignType = (post, cb) => {
+  return myQuery(
+    "INSERT INTO `traffic_signs_type` (`Name`, `Text`, `Placement_Text`, `Placement_Image_Route`) " +
+    "VALUES (?)", [post],
+    (error, results) => {
+      error ? cb(error) : cb(null, results)
+    }
+  )
+}
+
 QgetTraffic_SignById = (id, cb) => {
   return myQuery(
     "SELECT Traffic_Signs.*, CONCAT( '[', GROUP_CONCAT( CONCAT( " +
@@ -106,6 +116,7 @@ module.exports = function(myQuery) {
     QpatchTraffic_SignById,
     QdeleteTraffic_SignById,
     QpostTraffic_Sign,
+    QpostTrafficSignType,
     QgetAllTraffic_Signs
   };
 };
