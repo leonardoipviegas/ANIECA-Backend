@@ -97,10 +97,7 @@ var postTraffic_Sign = (req, res) => {
         req.body.Name,
         req.body.Text,
         req.body.Image_Route,
-        req.body.Traffic_Signs_Type_idTraffic_Signs_Type,
-        req.body.Example_1_Image_Route,
-        req.body.Example_2_Image_Route,
-        req.body.Example_3_Image_Route
+        req.body.Traffic_Signs_Type_idTraffic_Signs_Type
       ],
         (err, results) => {
           if (err) {
