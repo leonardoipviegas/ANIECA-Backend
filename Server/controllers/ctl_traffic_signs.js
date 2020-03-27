@@ -115,12 +115,25 @@ var deleteTraffic_SignById = (req, res) => {
         }
       );
 }
+var deleteTraffic_SignExamplesById = (req, res) => {
+  dbHandlers.Qgen_traffic_signs.QdeleteTraffic_SignExamplesById(
+    req.query.idTraffic_Signs_Examples,
+    (err, results) => {
+      if (err) {
+        console.log(err);
+        res.status(500).send({ message: "Unknown error." });
+      }
+      return res.send(results);
+    }
+  );
+}
 
 module.exports = {
   getTraffic_Signs_TypeById,
   patchTraffic_Signs_TypeById,
   getTraffic_Signs_ImageByTypeId,
   getTraffic_SignById,
+  deleteTraffic_SignExamplesById,
   patchTraffic_SignById,
   deleteTraffic_SignById,
   postTraffic_Sign

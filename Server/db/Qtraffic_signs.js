@@ -96,10 +96,21 @@ QdeleteTraffic_SignById = (id, cb) => {
   );
 };
 
+QdeleteTraffic_SignExamplesById = (id, cb) => {
+  return myQuery(
+    "DELETE FROM Traffic_Signs_Examples WHERE idTraffic_Signs_Examples = ?;",
+    [id],
+    (error, results) => {
+      error ? cb(error) : cb(null, results);
+    }
+  );
+};
+
 module.exports = function(myQuery) {
   return {
     QgetAllTraffic_Sign_Type,
     QgetTraffic_Sign_TypeById,
+    QdeleteTraffic_SignExamplesById,
     QpatchTraffic_Sign_TypeById,
     QgetTraffic_Signs_ImageByTypeId,
     QgetTraffic_SignById,

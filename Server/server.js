@@ -47,6 +47,10 @@ app.post('/api/content/traffic-signs/sign/', controllers.traffic_signs.postTraff
 app.patch('/api/content/traffic-signs/sign/', controllers.traffic_signs.patchTraffic_SignById)
 app.delete('/api/content/traffic-signs/sign/', controllers.traffic_signs.deleteTraffic_SignById)
 
+//signs examples
+
+app.delete('/api/content/traffic-signs/sign/examples/', controllers.traffic_signs.deleteTraffic_SignExamplesById)
+
 server.listen(port, () => {
   console.log(`Started on port ${port}`);
 });
